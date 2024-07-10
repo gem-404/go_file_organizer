@@ -10,14 +10,36 @@ import (
 	"strings"
 )
 
-var ExtSlice = []string{"doc", "docx", "html", "jpeg", "jpg", "JPG", "pdf", "pptx", "xlsx", "zip", "mp3", "mp4", "sh", "txt", "py", "ipynb", "csv", "conf", "png", "xls", "part", "PNG", "xls", "rar", "gz", "tar.gz", "xml", "ttf"}
+var ExtSlice = []string{"doc", "docx", "html", "jpeg", "jpg", "JPG", "pdf", "pptx", "xlsx", "zip", "mp3", "mp4", "sh", "txt", "py", "ipynb", "csv", "conf", "png", "xls", "part", "PNG", "xls", "rar", "gz", "tar.gz", "xml", "ttf", "svg", "rmd", "r", "Rmd", "bib", "c", "md", "cpp", "rs", "dat"}
 
-func CheckAndCreateFolder(basedir string) ([]string, error) {
+func GetExtensions(files []fs.DirEntry) []string {
+
+	extSet := make(map[string]struct{})
+
+	for _, file := range files {
+		ext := getFileExtension(file.Name())
+
+		if IsValidExtension(ext) {
+			extSet[ext] = struct{}{}
+		}
+	}
+
+	var extensions []string
+
+	for ext := range extSet {
+		extensions = append(extensions, ext)
+	}
+
+	return extensions
+
+}
+
+func CheckAndCreateFolder(basedir string, extensions []string) ([]string, error) {
 
 	folderDirs := []string{}
 
 	// Creates folders if none exists for the extensions above...
-	for _, ext := range ExtSlice {
+	for _, ext := range extensions {
 
 		folder := filepath.Join(basedir, ext+"folder")
 		folderDirs = append(folderDirs, folder)
@@ -25,9 +47,7 @@ func CheckAndCreateFolder(basedir string) ([]string, error) {
 		err := os.MkdirAll(folder, 0755)
 
 		if err != nil {
-
 			return nil, fmt.Errorf("failed to create directory %s: %s", folder, err)
-
 		}
 
 	}
@@ -59,8 +79,11 @@ func GetFilesInFolder(path string) []fs.DirEntry {
 }
 
 func getFileExtension(fileName string) string {
+
 	ext := filepath.Ext(fileName)
-	return strings.TrimPrefix(ext, ".") // Remove the leading dot
+
+	return strings.TrimPrefix(ext, ".")
+
 }
 
 func IsValidExtension(ext string) bool {

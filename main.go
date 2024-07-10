@@ -6,8 +6,6 @@ import (
 	"os"
 )
 
-// const baseDir = "/home/gem-404/Downloads"
-
 func main() {
 
 	// Check if the user provided the folder path as an argument
@@ -23,15 +21,17 @@ func main() {
 		log.Fatalf("Directory %s does not exist:%s\n", baseDir, err)
 	}
 
-	folderDirs, err := CheckAndCreateFolder(baseDir)
+	files := GetFilesInFolder(baseDir)
+
+	extensions := GetExtensions(files)
+
+	folderDirs, err := CheckAndCreateFolder(baseDir, extensions)
 
 	if err != nil {
-		log.Fatalf("An error occurred during creating baseDir: %s, %s", baseDir, err)
+		log.Fatalf("An error occurred during creating folders in baseDir: %s, %s", baseDir, err)
 	} else {
 		fmt.Println("All baseDirs created successfully!")
 	}
-
-	files := GetFilesInFolder(baseDir)
 
 	err = MoveFiles(baseDir, files, folderDirs)
 

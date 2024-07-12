@@ -177,35 +177,48 @@ func checkFolderContainingExt(extension string, destDirs []string) (folder strin
 
 func MoveFiles(baseDir string, files []fs.DirEntry, destDir []string) error {
 
-	// Match up file names with the destination dirs they should be moved to
+	noExtFolder := filepath.Join(baseDir, "no_ext_folder")
+
+	err := os.MkdirAll(noExtFolder, 0755)
+
+	if err != nil {
+		return fmt.Errorf("failed to create directory %s: %s", noExtFolder, err)
+	}
+
+	destDir = append(destDir, noExtFolder)
 
 	for _, file := range files {
-
 		fileName := file.Name()
-
 		ext := getFileExtension(fileName)
 
-		if IsValidExtension(ext) {
+		if ext == "" {
+			err := moveFileToFolder(baseDir, fileName, noExtFolder)
+
+			if err != nil {
+				return err
+			}
+
+		} else if IsValidExtension(ext) {
 
 			folderContainingExt := checkFolderContainingExt(ext, destDir)
 
 			if folderContainingExt != "" {
-
-				sourcePath := filepath.Join(baseDir, fileName)
-
-				destPath := filepath.Join(folderContainingExt, fileName)
-
-				err := moveFile(sourcePath, destPath)
-
+				err := moveFileToFolder(baseDir, fileName, folderContainingExt)
 				if err != nil {
-					return fmt.Errorf("failed to move file %s to %s: %w", sourcePath, destPath, err)
+					return err
 				}
-
 			}
-
 		}
-
 	}
+	return nil
+}
 
+func moveFileToFolder(baseDir, fileName, folder string) error {
+	sourcePath := filepath.Join(baseDir, fileName)
+	destPath := filepath.Join(folder, fileName)
+	err := moveFile(sourcePath, destPath)
+	if err != nil {
+		return fmt.Errorf("failed to move file %s to %s: %w", sourcePath, destPath, err)
+	}
 	return nil
 }

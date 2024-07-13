@@ -12,6 +12,8 @@ This project is a simple file organizer written in Go. It reads a specified dire
 - [Functions](#functions)
   - [Main Functions](#main-functions)
   - [Helper Functions](#helper-functions)
+- [Installation](#installation)
+- [Usage](#Usage)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -208,9 +210,7 @@ fileorganizer /home/user/Downloads
 ```
 
 This will organize all files in the `/home/user/Downloads` directory by moving them into subdirectories based on their file extensions.
-```
 
-This section provides a comprehensive guide for users on how to build, install, and use the `fileorganizer` program, ensuring it can be run from anywhere on their system.
 
 ## Contributing
 

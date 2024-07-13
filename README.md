@@ -13,7 +13,7 @@ This project is a simple file organizer written in Go. It reads a specified dire
   - [Main Functions](#main-functions)
   - [Helper Functions](#helper-functions)
 - [Building](#Building)
-- [Usage](#Usage)
+- [Build Usage](#Build-Usage)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -145,7 +145,7 @@ To build the executable and make it accessible system-wide, follow these steps:
 
    This should show `/usr/local/bin/fileorganizer` or the path where you moved the executable.
 
-## Usage
+## Build-Usage
 
 To run the program from any directory, use the following command:
 

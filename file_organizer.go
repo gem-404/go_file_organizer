@@ -214,16 +214,16 @@ func MoveFiles(baseDir string, files []fs.DirEntry, destDir []string) error {
 }
 
 func moveFileToFolder(baseDir, fileName, folder string) error {
-	
+
 	sourcePath := filepath.Join(baseDir, fileName)
-	
+
 	destPath := filepath.Join(folder, fileName)
-	
+
 	err := moveFile(sourcePath, destPath)
-	
+
 	if err != nil {
 		return fmt.Errorf("failed to move file %s to %s: %w", sourcePath, destPath, err)
 	}
-	
+
 	return nil
 }

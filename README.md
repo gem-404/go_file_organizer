@@ -12,7 +12,7 @@ This project is a simple file organizer written in Go. It reads a specified dire
 - [Functions](#functions)
   - [Main Functions](#main-functions)
   - [Helper Functions](#helper-functions)
-- [Installation](#installation)
+- [Building](#Building)
 - [Usage](#Usage)
 - [Contributing](#contributing)
 - [License](#license)
@@ -111,7 +111,7 @@ go run . /home/gem-404/Downloads
   - Moves files to their respective folders based on their extensions.
 
 
-## Installation
+## Building
 
 To build the executable and make it accessible system-wide, follow these steps:
 

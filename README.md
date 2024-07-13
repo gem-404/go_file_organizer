@@ -108,6 +108,110 @@ go run . /home/gem-404/Downloads
 - **MoveFiles(baseDir string, files []fs.DirEntry, destDirs []string) error**:
   - Moves files to their respective folders based on their extensions.
 
+
+## Installation
+
+To build the executable and make it accessible system-wide, follow these steps:
+
+1. **Build the Go Program:**
+
+   Navigate to your project directory and build the binary.
+
+   ```sh
+   cd /path/to/your/project
+   go build -o fileorganizer
+   ```
+
+   This command will generate an executable named `fileorganizer` in your project directory.
+
+2. **Move the Executable to a Directory in Your PATH:**
+
+   Move the executable to `/usr/local/bin` or any directory that's included in your `PATH`.
+
+   ```sh
+   sudo mv fileorganizer /usr/local/bin/
+   ```
+
+3. **Verify the Executable:**
+
+   Ensure that the executable is accessible from anywhere by checking the `PATH`.
+
+   ```sh
+   echo $PATH
+   which fileorganizer
+   ```
+
+   This should show `/usr/local/bin/fileorganizer` or the path where you moved the executable.
+
+## Usage
+
+To run the program from any directory, use the following command:
+
+```sh
+fileorganizer /path/to/target/directory
+```
+
+## Adding the Program to PATH Manually (Optional)
+
+If you prefer to add the directory containing your executable to the `PATH` manually, follow these steps:
+
+1. **Edit the Shell Configuration File:**
+
+   Open your preferred text editor and edit the appropriate configuration file (`.bashrc`, `.zshrc`, or `.profile`).
+
+   ```sh
+   nano ~/.bashrc
+   ```
+
+   or
+
+   ```sh
+   nano ~/.zshrc
+   ```
+
+2. **Add the Directory to PATH:**
+
+   Add the following line to the file:
+
+   ```sh
+   export PATH=$PATH:/path/to/your/executable
+   ```
+
+   For example:
+
+   ```sh
+   export PATH=$PATH:/home/yourusername/go/bin
+   ```
+
+3. **Reload the Configuration:**
+
+   After saving the file, reload the configuration.
+
+   ```sh
+   source ~/.bashrc
+   ```
+
+   or
+
+   ```sh
+   source ~/.zshrc
+   ```
+
+Now, your Go program is accessible system-wide, and you can execute it from any directory without needing to navigate to the project directory. This approach simplifies running your utility, especially when automating tasks or integrating them into scripts.
+
+## Example Usage
+
+Here’s an example of how to use the `fileorganizer` program:
+
+```sh
+fileorganizer /home/user/Downloads
+```
+
+This will organize all files in the `/home/user/Downloads` directory by moving them into subdirectories based on their file extensions.
+```
+
+This section provides a comprehensive guide for users on how to build, install, and use the `fileorganizer` program, ensuring it can be run from anywhere on their system.
+
 ## Contributing
 
 Contributions are welcome! Please submit a pull request or open an issue to discuss any changes or improvements.

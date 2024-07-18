@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-var ExtSlice = []string{"doc", "docx", "html", "jpeg", "jpg", "JPG", "pdf", "pptx", "xlsx", "zip", "mp3", "mp4", "sh", "txt", "py", "ipynb", "csv", "conf", "png", "xls", "part", "PNG", "xls", "rar", "gz", "tar.gz", "xml", "ttf", "svg", "rmd", "r", "Rmd", "bib", "c", "md", "cpp", "rs", "dat", "odt"}
+var ExtSlice = []string{"doc", "docx", "html", "jpeg", "jpg", "JPG", "pdf", "pptx", "xlsx", "zip", "mp3", "mp4", "sh", "txt", "py", "ipynb", "csv", "conf", "png", "xls", "part", "PNG", "xls", "rar", "gz", "tar.gz", "xml", "ttf", "svg", "rmd", "r", "Rmd", "bib", "c", "md", "cpp", "rs", "dat", "odt", "ref"}
 
 func GetExtensions(files []fs.DirEntry) []string {
 

@@ -14,11 +14,11 @@ GO_BUILD := go build -o $(EXECUTABLE)
 COMMIT_MSG := "Automated MakeFile Commit"
 
 # Default target
-all: build move git
+all: build move
 
 # Build the Go program
 build:
-	@echo "Building the Go executable..."
+	@echo "Building the Go executable"
 	$(GO_BUILD) $(SRC_DIR)
 
 # Move the executable to /usr/local/bin
@@ -37,17 +37,18 @@ git-add:
 	@git add .
 
 # Commit changes to git
-git-commit: git-add
-	@echo "Committing changes to Git..."
-	@git commit -m \"$(COMMIT_MSG)\"
+git-commit:
+	@echo "committing changes to Git..."
+	@git commit -m "$(COMMIT_MSG)"
 
 # Push changes to remote repository
-git-push: git-commit
-	@echo "Pushing changes to remote repository..."
+git-push:
+	@echo "Pushing changes to remote repository"
 	@git push
 
 # Git operations combined
-git: git-push
+git: git-add git-commit git-push
+
 
 # PHONY targets
 .PHONY: all build move clean git-add git-commit git-push git

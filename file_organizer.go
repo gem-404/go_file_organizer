@@ -1,3 +1,12 @@
+/*
+Package main provides functionality to organize files in a directory based on their extensions.
+It includes:
+- Functions to extract file extensions and validate them.
+- Functions to create directories for extensions.
+- Logic to move files into their respective extension-based folders.
+- Helper functions for directory and file operations.
+*/
+
 package main
 
 import (
@@ -10,8 +19,15 @@ import (
 	"strings"
 )
 
-var ExtSlice = []string{"doc", "docx", "html", "jpeg", "jpg", "JPG", "pdf", "pptx", "xlsx", "zip", "mp3", "mp4", "sh", "txt", "py", "ipynb", "csv", "conf", "png", "xls", "part", "PNG", "xls", "rar", "gz", "tar.gz", "xml", "ttf", "svg", "rmd", "r", "Rmd", "bib", "c", "md", "cpp", "rs", "dat", "odt", "ref", "pem", "torrent", "log", "cap", "netxml", "plist", "sql", "apk", "psd", "rtf", "epub", "gif", "PDF", "fig"}
+// ExtSlice is a slice of valid file extensions
+var ExtSlice = []string{"doc", "docx", "html", "jpeg", "jpg", "JPG", "pdf",
+	"pptx", "xlsx", "zip", "mp3", "mp4", "sh", "txt", "py", "ipynb", "csv", "conf",
+	"png", "xls", "part", "PNG", "xls", "rar", "gz", "tar.gz", "xml", "ttf", "svg",
+	"rmd", "r", "Rmd", "bib", "c", "md", "cpp", "rs", "dat", "odt", "ref", "pem",
+	"torrent", "log", "cap", "netxml", "plist", "sql", "apk", "psd", "rtf", "epub",
+	"gif", "PDF", "fig"}
 
+// GetExtensions returns a slice of unique file extensions from a slice of fs.DirEntry
 func GetExtensions(files []fs.DirEntry) []string {
 
 	extSet := make(map[string]struct{})
@@ -34,6 +50,7 @@ func GetExtensions(files []fs.DirEntry) []string {
 
 }
 
+// CheckAndCreateFolder checks if folders for the extensions exist and creates them if they don't
 func CheckAndCreateFolder(basedir string, extensions []string) ([]string, error) {
 
 	folderDirs := []string{}
@@ -56,6 +73,7 @@ func CheckAndCreateFolder(basedir string, extensions []string) ([]string, error)
 
 }
 
+// GetFilesInFolder returns a slice of fs.DirEntry of files in a folder
 func GetFilesInFolder(path string) []fs.DirEntry {
 
 	// Open and read path
@@ -78,6 +96,7 @@ func GetFilesInFolder(path string) []fs.DirEntry {
 	return files
 }
 
+// OrganizeFiles organizes files in a directory based on their extensions
 func getFileExtension(fileName string) string {
 
 	ext := filepath.Ext(fileName)
@@ -86,6 +105,7 @@ func getFileExtension(fileName string) string {
 
 }
 
+// IsValidExtension checks if a file extension is valid
 func IsValidExtension(ext string) bool {
 	for _, validExt := range ExtSlice {
 		if ext == validExt {
@@ -96,6 +116,7 @@ func IsValidExtension(ext string) bool {
 	return false
 }
 
+// MoveFiles moves files to their respective folders based on their extensions
 func copyFile(sourcePath, destPath string) error {
 	sourceFile, err := os.Open(sourcePath)
 
@@ -146,6 +167,7 @@ func moveFile(sourcePath, destPath string) error {
 	return nil
 }
 
+// EnsureDirExists checks if a directory exists and creates it if it doesn't
 func EnsureDirExists(dirPath string) error {
 
 	if _, err := os.Stat(dirPath); os.IsNotExist(err) {
@@ -175,6 +197,7 @@ func checkFolderContainingExt(extension string, destDirs []string) (folder strin
 
 }
 
+// MoveFiles moves files to their respective folders based on their extensions
 func MoveFiles(baseDir string, files []fs.DirEntry, destDir []string) error {
 
 	noExtFolder := filepath.Join(baseDir, "no_ext_folder")
